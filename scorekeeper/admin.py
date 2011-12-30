@@ -1,4 +1,4 @@
-from houba_scorekeeper.scorekeeper.models import Game, Level, Player, Score
+from newton_scoreserver.scorekeeper.models import Game, Level, Player, Score
 from django.contrib import admin
 
 admin.site.register(Game)
