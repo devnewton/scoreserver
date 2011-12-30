@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ object.name }}</h1>
+    <p>{{ object.decription }}</p>
+    <table>
+        {% for level in object.level_set.all %}
+            <tr>
+                <td><a href="{{ level.get_absolute_url }}">{{ level.name }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+{% endblock %}
+

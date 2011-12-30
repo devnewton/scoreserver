@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1> <a href="{{ object.game.get_absolute_url }}">{{ object.game.name }}</a>: {{ object.name }}</h1>
+    
+    <table>
+    {% for score in object.sorted_scores %}
+    <tr>
+        <td>{{ score.score }}</td><td>{{ score.player.slug }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+    
+{% endblock %}
+
