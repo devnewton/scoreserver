@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     (r'^$', 'scorekeeper.views.index'),
     (r'^game/(?P<game_slug>[-\w]+)/$', 'scorekeeper.views.game_detail'),
     (r'^level/(?P<level_slug>[-\w]+)/$', 'scorekeeper.views.level_detail'),
+    (r'^player/(?P<player_slug>[-\w]+)/$', 'scorekeeper.views.player_detail'),
     (r'^score/$', 'scorekeeper.views.score'),
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:

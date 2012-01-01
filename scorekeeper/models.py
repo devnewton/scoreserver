@@ -24,9 +24,14 @@ class Level(models.Model):
 
 class Player(models.Model):
     slug = models.SlugField(max_length=80, unique=True)
-    secret = models.SlugField(max_length=80, unique=True)    
+    secret = models.SlugField(max_length=80, unique=True)
+    @models.permalink
+    def get_absolute_url(self):
+        return ('scorekeeper.views.player_detail', [str(self.slug)])
     def __unicode__(self):
         return self.slug
+    def sorted_scores(self):
+        return self.score_set.all().order_by('-level__name', '-score')
 
 class Score(models.Model):
     player = models.ForeignKey(Player)

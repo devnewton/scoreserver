@@ -81,4 +81,4 @@ INSTALLED_APPS = (
     'newton_scoreserver.scorekeeper'
 )
 
-HOUBA_MAX_SCORE_TO_KEEP = 5
+SCORESERVER_MAX_SCORE_TO_KEEP = 5

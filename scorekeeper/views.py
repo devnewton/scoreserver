@@ -17,7 +17,10 @@ def game_detail(request, game_slug):
     
 def level_detail(request, level_slug):
     return list_detail.object_detail( request, queryset= Level.objects.all(), slug=level_slug, slug_field='slug', template_name='scorekeeper/templates/level_detail.html'  )
-    
+
+def player_detail(request, player_slug):
+    return list_detail.object_detail( request, queryset= Player.objects.all(), slug=player_slug, slug_field='slug', template_name='scorekeeper/templates/player_detail.html'  )
+
 def score(request):
     level = Level.objects.get(slug=request.REQUEST['level'])
     player = Player.objects.get(slug=request.REQUEST['player'],secret=request.REQUEST['secret'])

@@ -6,10 +6,9 @@
     <table>
     {% for score in object.sorted_scores %}
     <tr>
-        <td>{{ score.score }}</td><td>{{ score.player.slug }}</td>
+        <td>{{ score.score }}</td><td><a href="{{ score.player.get_absolute_url }}">{{ score.player.slug }}</a></td>
     </tr>
     {% endfor %}
     </table>
     
 {% endblock %}
-
