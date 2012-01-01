@@ -25,7 +25,7 @@ def score(request):
     level = Level.objects.get(slug=request.REQUEST['level'])
     player = Player.objects.get(slug=request.REQUEST['player'],secret=request.REQUEST['secret'])
     score = Score.objects.get_or_create( level = level, player = player, score = request.REQUEST['score'] )
-    if level.score_set.count() > settings.HOUBA_MAX_SCORE_TO_KEEP:
-        for scoreToDelete in level.score_set.all().order_by('-score')[settings.HOUBA_MAX_SCORE_TO_KEEP:]:
+    if level.score_set.count() > settings.SCORESERVER_MAX_SCORE_TO_KEEP:
+        for scoreToDelete in level.score_set.all().order_by('-score')[settings.SCORESERVER_MAX_SCORE_TO_KEEP:]:
             scoreToDelete.delete()
     return HttpResponse("score saved")
