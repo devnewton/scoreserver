@@ -23,8 +23,13 @@ def player_detail(request, player_slug):
 
 def score(request):
     level = Level.objects.get(slug=request.REQUEST['level'])
-    player = Player.objects.get(slug=request.REQUEST['player'],secret=request.REQUEST['secret'])
-    score = Score.objects.get_or_create( level = level, player = player, score = request.REQUEST['score'] )
+    player, isNewPlayer = Player.objects.get_or_create(slug=request.REQUEST['player'], defaults={'secret':request.REQUEST['secret']})
+    if not isNewPlayer and player.secret != request.REQUEST['secret']:
+        return HttpResponse("invalid player secret")
+    score, isNewScore = Score.objects.get_or_create( level = level, player = player, defaults={'score':request.REQUEST['score']} )
+    if not isNewScore:
+        score.score = request.REQUEST['score']
+        score.save()
     if level.score_set.count() > settings.SCORESERVER_MAX_SCORE_TO_KEEP:
         for scoreToDelete in level.score_set.all().order_by('-score')[settings.SCORESERVER_MAX_SCORE_TO_KEEP:]:
             scoreToDelete.delete()
