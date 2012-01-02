@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 class Game(models.Model):
     slug = models.SlugField(max_length=80, unique=True)
@@ -21,6 +22,10 @@ class Level(models.Model):
         return ('scorekeeper.views.level_detail', [str(self.slug)])
     def sorted_scores(self):
         return self.score_set.all().order_by('-score')
+    def cleanup(self):
+        if self.score_set.count() > settings.SCORESERVER_MAX_SCORE_TO_KEEP:
+            for scoreToDelete in self.score_set.all().order_by('-score')[settings.SCORESERVER_MAX_SCORE_TO_KEEP:]:
+                scoreToDelete.delete()
 
 class Player(models.Model):
     slug = models.SlugField(max_length=80, unique=True)
@@ -32,6 +37,10 @@ class Player(models.Model):
         return self.slug
     def sorted_scores(self):
         return self.score_set.all().order_by('-level__name', '-score')
+    @staticmethod
+    def cleanup():
+        for player in Player.objects.annotate(num_scores = models.Count('score')).filter(num_scores = 0):
+            player.delete()
 
 class Score(models.Model):
     player = models.ForeignKey(Player)
