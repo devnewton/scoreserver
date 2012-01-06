@@ -28,7 +28,7 @@ def score(request):
         return HttpResponse("invalid player secret")
     score, isNewScore = Score.objects.get_or_create( level = level, player = player, defaults={'score':request.REQUEST['score']} )
     if not isNewScore:
-        score.score = request.REQUEST['score']
+        score.score = max( int( request.REQUEST['score'] ), int( score.score ) )
         score.save()
     #cleanup
     level.cleanup()
