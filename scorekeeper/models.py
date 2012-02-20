@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils.encoding import smart_str    
 
 class Game(models.Model):
     slug = models.SlugField(max_length=80, unique=True)
@@ -9,7 +10,7 @@ class Game(models.Model):
         return self.name
     @models.permalink
     def get_absolute_url(self):
-        return ('scorekeeper.views.game_detail', [str(self.slug)])
+        return ('scorekeeper.views.game_detail', [smart_str(self.slug)])
     
 class Level(models.Model):
     slug = models.SlugField(max_length=80, unique=True)
@@ -19,7 +20,7 @@ class Level(models.Model):
         return self.name
     @models.permalink
     def get_absolute_url(self):
-        return ('scorekeeper.views.level_detail', [str(self.slug)])
+        return ('scorekeeper.views.level_detail', [smart_str(self.slug)])
     def sorted_scores(self):
         return self.score_set.all().order_by('-score')
     def cleanup(self):
@@ -33,7 +34,7 @@ class Player(models.Model):
     registered = models.BooleanField(default=False)
     @models.permalink
     def get_absolute_url(self):
-        return ('scorekeeper.views.player_detail', [str(self.slug)])
+        return ('scorekeeper.views.player_detail', [smart_str(self.slug)])
     def __unicode__(self):
         return self.slug
     def sorted_scores(self):
@@ -48,4 +49,4 @@ class Score(models.Model):
     level = models.ForeignKey(Level)
     score = models.IntegerField()
     def __unicode__(self):
-        return self.level.name + ': ' + self.player.slug + ' = ' + str(self.score )    
+        return self.level.name + ': ' + self.player.slug + ' = ' + smart_str(self.score )    
