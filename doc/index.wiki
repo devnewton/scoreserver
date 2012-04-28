@@ -1,3 +1,4 @@
+<title>scoreserver</title>
 scoreserver is a django application to store and show game highscores.
 
 While it can be used with virtually any game, it is developped to keep <a href="http://devnewton.bci.im/scoreserver"><strong>Newton Adventure highscores</strong></a>.
