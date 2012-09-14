@@ -39,6 +39,8 @@ def score(request):
     if not isNewScore:
         score.score = max( int( request.REQUEST['score'] ), int( score.score ) )
         score.save()
+    level.game.nbScoreSubmitted += 1
+    level.game.save()
     #cleanup
     level.cleanup()
     Player.cleanup()

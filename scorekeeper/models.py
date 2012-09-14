@@ -6,6 +6,7 @@ class Game(models.Model):
     slug = models.SlugField(max_length=80, unique=True)
     name = models.CharField(max_length=80)
     description = models.TextField()
+    nbScoreSubmitted = models.PositiveIntegerField(default=0);
     def __unicode__(self):
         return self.name
     @models.permalink
