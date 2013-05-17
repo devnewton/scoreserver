@@ -1,11 +1,11 @@
-{% for level in object.level_set.all %}
-<h1>{{ level.name }}</h1>
 <table>
+{% for level in object.level_set.all %}
+    <tr><th colspan="2">{{ level.name }}</th></tr>
+    
     {% for score in level.sorted_scores %}
     <tr>
         <td>{{ score.score }}</td><td>{{ score.player.slug }}</td>
     </tr>
     {% endfor %}
-</table>
-
 {% endfor %}
+</table>
