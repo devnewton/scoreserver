@@ -1,0 +1,12 @@
+{% for level in object.level_set.all %}
+<h1>{{ level.name }}</h1>
+<table>
+    {% for score in level.sorted_scores %}
+    <tr>
+        <td>{{ score.score }}</td><td>{{ score.player.slug }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endfor %}
+<p>{{ object.nbScoreSubmitted  }} scores submitted.</p>

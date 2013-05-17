@@ -14,6 +14,9 @@ def index(request):
     
 def game_detail(request, game_slug):
     return list_detail.object_detail( request, queryset= Game.objects.all(), slug=game_slug, slug_field='slug', template_name='scorekeeper/templates/game_detail.html'  )
+
+def ajax_game_detail(request, game_slug):
+    return list_detail.object_detail( request, queryset= Game.objects.all(), slug=game_slug, slug_field='slug', template_name='scorekeeper/templates/ajax_game_detail.html'  )
     
 def level_detail(request, level_slug):
     return list_detail.object_detail( request, queryset= Level.objects.all(), slug=level_slug, slug_field='slug', template_name='scorekeeper/templates/level_detail.html'  )
